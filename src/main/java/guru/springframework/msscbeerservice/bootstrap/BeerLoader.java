@@ -10,10 +10,10 @@ import java.math.BigDecimal;
 /**
  * Created by jt on 2019-05-17.
  */
-@Component
-public class BeerLoader implements CommandLineRunner {
+@Component // = picked up by spring context
+public class BeerLoader implements CommandLineRunner { // invokes run method everytime spring context starts
 
-    private final BeerRepository beerRepository;
+    private final BeerRepository beerRepository; // beer repository injected
 
     public BeerLoader(BeerRepository beerRepository) {
         this.beerRepository = beerRepository;
@@ -25,7 +25,7 @@ public class BeerLoader implements CommandLineRunner {
     }
 
     private void loadBeerObjects() {
-        if(beerRepository.count() == 0){
+        if(beerRepository.count() == 0){ // do if repository empty
 
             beerRepository.save(Beer.builder()
                     .beerName("Mango Bobs")
@@ -45,5 +45,6 @@ public class BeerLoader implements CommandLineRunner {
                     .price(new BigDecimal("11.95"))
                     .build());
         }
+        System.out.println("Loaded Beers: " + beerRepository.count()); // console shows it works>Loaded Beers: 2
     }
 }

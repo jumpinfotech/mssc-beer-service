@@ -18,29 +18,33 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
+@Entity // is JPA entity
 public class Beer {
 
-    @Id
+    @Id // will be a hibernate generated UUID
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+// updatable = false:can't update
     @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
     private UUID id;
 
-    @Version
+    @Version // gives us optimistic locking
     private Long version;
 
-    @CreationTimestamp
+    @CreationTimestamp // hibernate extension to JPA
     @Column(updatable = false)
+// using java.sql.Timestamp, can't be updated
     private Timestamp createdDate;
 
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
 
     private String beerName;
+    
+// beerStyle could be a String or Enum
     private String beerStyle;
 
-    @Column(unique = true)
+    @Column(unique = true) // hibernate puts a unique key on upc column
     private Long upc;
 
     private BigDecimal price;
