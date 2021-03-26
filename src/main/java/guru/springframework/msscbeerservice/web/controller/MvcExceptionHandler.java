@@ -15,11 +15,13 @@ import java.util.List;
 @ControllerAdvice
 public class MvcExceptionHandler {
 
+    // could return many errors to client
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<List> validationErrorHandler(ConstraintViolationException ex){
         List<String> errorsList = new ArrayList<>(ex.getConstraintViolations().size());
-
-        ex.getConstraintViolations().forEach(error -> errorsList.add(error.toString()));
+        // you could create a formal errors object,
+        // spring may introduce a formal handling of bean validation errors to send as a rest response 
+        ex.getConstraintViolations().forEach(error -> errorsList.add(error.toString())); 
 
         return new ResponseEntity<>(errorsList, HttpStatus.BAD_REQUEST);
     }

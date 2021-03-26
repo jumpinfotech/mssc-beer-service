@@ -24,7 +24,10 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity saveNewBeer(@RequestBody @Validated BeerDto beerDto){
+    public ResponseEntity saveNewBeer(@RequestBody @Validated BeerDto beerDto){ 
+        // @Validated = validate when spring binds the RequestBody to BeerDto 
+        
+        // @ControllerAdvice MvcExceptionHandler handles any ConstraintViolationException
 
         //todo impl
         return new ResponseEntity(HttpStatus.CREATED);

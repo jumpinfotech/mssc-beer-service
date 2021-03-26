@@ -23,7 +23,7 @@ import java.util.UUID;
 @Builder
 public class BeerDto {
 
-    @Null
+    @Null // @Null = for client readonly field
     private UUID id;
 
     @Null
