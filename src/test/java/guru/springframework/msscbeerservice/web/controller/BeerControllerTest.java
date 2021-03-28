@@ -55,6 +55,7 @@ class BeerControllerTest {
                 .andExpect(status().isNoContent());
     }
 
+    //  fix tests=bean validation>now we have required properties
     BeerDto getValidBeerDto(){
         return BeerDto.builder()
                 .beerName("My Beer")

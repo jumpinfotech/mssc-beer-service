@@ -6,7 +6,7 @@ version: 2
 jobs:
     build:
         docker:
-            # specify the version you desire here
+            # specify the version you desire here, he had to update to openjdk docker image
             - image: circleci/openjdk:11-browsers-legacy
 
             # Specify service dependencies here if necessary
@@ -20,6 +20,7 @@ jobs:
             # Customize the JVM maximum heap limit
             MAVEN_OPTS: -Xmx3200m
 
+        # this is preconfigured for maven, does checkout from github
         steps:
             - checkout
 
@@ -30,6 +31,7 @@ jobs:
                       # fallback to using the latest cache if no exact match is found
                       - v1-dependencies-
 
+            # tells maven to download all dependencies for project:-
             - run: mvn dependency:go-offline
 
             - save_cache:

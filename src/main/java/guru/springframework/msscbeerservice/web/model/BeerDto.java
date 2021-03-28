@@ -38,6 +38,16 @@ public class BeerDto {
     @NotBlank
     private String beerName;
 
+    
+    //  ...\msscbeerservice\domain\Beer.java: String beerStyle;
+    //  However here: BeerStyleEnum beerStyle, 
+    
+    //  MapStruct converts:-
+    //  ...\target\generated-sources\annotations\guru\springframework\msscbeerservice\web\mappers\BeerMapperImpl.java
+    //  public BeerDto BeerToBeerDto(Beer beer) { ... :-
+    //  if ( beer.getBeerStyle() != null ) {
+    //      beerDto.beerStyle( Enum.valueOf( BeerStyleEnum.class, beer.getBeerStyle() ) );
+    //  }
     @NotNull
     private BeerStyleEnum beerStyle;
 
