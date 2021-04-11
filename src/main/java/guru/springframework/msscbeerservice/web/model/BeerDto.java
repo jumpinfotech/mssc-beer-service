@@ -31,6 +31,7 @@ public class BeerDto {
     private Integer version;
 
     @Null
+    // @JsonFormat>controls the output of JSON during serialization (DTO to JSON)
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)
     private OffsetDateTime createdDate;
 
@@ -45,9 +46,10 @@ public class BeerDto {
     private BeerStyleEnum beerStyle;
 
     @NotNull
-    private String upc;
+    private String upc; // changed from Long to String, @Positive removed as it doesn't work with Strings
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    // see notes given in:-https://github.com/jumpinfotech/mssc-jackson-examples/commit/4131e60b14cfee5af2582c59276d63737c65b5f9
+    @JsonFormat(shape = JsonFormat.Shape.STRING) // String instead of number - easier for international currencies
     @Positive
     @NotNull
     private BigDecimal price;

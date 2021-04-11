@@ -18,11 +18,13 @@ import java.util.UUID;
 @RestController
 public class BeerController {
 
-    private final BeerService beerService;
+    // @RequiredArgsConstructor - Spring 4.2+ don't have to annotate constructors with @Autowired, maybe this field needs to be final though??
+    // Code to BeerService interface
+    private final BeerService beerService; 
 
     @GetMapping("/{beerId}")
     public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerId") UUID beerId){
-        return new ResponseEntity<>(beerService.getById(beerId), HttpStatus.OK);
+        return new ResponseEntity<>(beerService.getById(beerId), HttpStatus.OK); // return ResponseEntity
     }
 
     @PostMapping

@@ -29,13 +29,13 @@ class BeerControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
-    @MockBean
+    @MockBean // WebMvcTest>doesn't bring up Service layer> BeerService needed as a @MockBean 
     BeerService beerService;
 
     @Test
     void getBeerById() throws Exception {
 
-        given(beerService.getById(any())).willReturn(getValidBeerDto());
+        given(beerService.getById(any())).willReturn(getValidBeerDto()); // Mock BeerService is setup here + in other tests
 
         mockMvc.perform(get("/api/v1/beer/" + UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -74,7 +74,7 @@ class BeerControllerTest {
                 .beerName("My Beer")
                 .beerStyle(BeerStyleEnum.ALE)
                 .price(new BigDecimal("2.99"))
-                .upc(BeerLoader.BEER_1_UPC)
+                .upc(BeerLoader.BEER_1_UPC) // no longer directly hard coded
                 .build();
     }
 }

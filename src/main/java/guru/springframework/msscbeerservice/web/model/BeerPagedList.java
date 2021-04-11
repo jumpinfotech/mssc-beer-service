@@ -15,6 +15,9 @@ import java.util.List;
  */
 public class BeerPagedList extends PageImpl<BeerDto> {
 
+//  Jackson can consume a Page Object from another Spring Service>JSON containing the page object is consumed>then bound to a BeerPageList. 
+//  The constructor takes in many properties>greyed out properties aren't used>later a new POJO will be created + these properties will be passed into the super constructor of that.
+//  Binding creates a complex POJO. He's not sure if he will need to use this in this service, this is just an example ... not sure if this is useful???
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public BeerPagedList(@JsonProperty("content") List<BeerDto> content,
                          @JsonProperty("number") int number,

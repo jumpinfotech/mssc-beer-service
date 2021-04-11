@@ -7,7 +7,7 @@ import java.util.UUID;
 /**
  * Created by jt on 2019-06-06.
  */
-public interface BeerService {
+public interface BeerService { //intelliJ>alt+enter>implement interface 
     BeerDto getById(UUID beerId);
 
     BeerDto saveNewBeer(BeerDto beerDto);

@@ -13,26 +13,28 @@ import java.util.UUID;
 /**
  * Created by jt on 2019-06-06.
  */
-@RequiredArgsConstructor
-@Service
+@RequiredArgsConstructor // needed so that the BeerMapper + BeerRepository are @Autowired
+@Service // don't forget @Service!!
 public class BeerServiceImpl implements BeerService {
     private final BeerRepository beerRepository;
-    private final BeerMapper beerMapper;
+    private final BeerMapper beerMapper; // converts Beer to BeerDto + vice versa
 
     @Override
     public BeerDto getById(UUID beerId) {
-        return beerMapper.beerToBeerDto(
-                beerRepository.findById(beerId).orElseThrow(NotFoundException::new)
+        return beerMapper.beerToBeerDto( // mapper takes in a Beer + returns a BeerDto
+                beerRepository.findById(beerId).orElseThrow(NotFoundException::new) // BeerRepository returns a Beer optional
         );
     }
 
     @Override
     public BeerDto saveNewBeer(BeerDto beerDto) {
-        return beerMapper.beerToBeerDto(beerRepository.save(beerMapper.beerDtoToBeer(beerDto)));
+        // convert BeerDto to Beer to save, convert Beer to BeerDto to return
+        return beerMapper.beerToBeerDto(beerRepository.save(beerMapper.beerDtoToBeer(beerDto))); 
     }
 
     @Override
     public BeerDto updateBeer(UUID beerId, BeerDto beerDto) {
+        //update logic added
         Beer beer = beerRepository.findById(beerId).orElseThrow(NotFoundException::new);
 
         beer.setBeerName(beerDto.getBeerName());
