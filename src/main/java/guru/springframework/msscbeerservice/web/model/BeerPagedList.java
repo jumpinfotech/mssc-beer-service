@@ -11,9 +11,8 @@ import org.springframework.data.domain.Pageable;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by jt on 2019-05-12.
- */
+// technically we didn't need it> we are not caching BeerPagedList it's good practise to implement Serializable, 
+// anything in our datamodel should have that capability 
 public class BeerPagedList extends PageImpl<BeerDto> implements Serializable {
 
     static final long serialVersionUID = 1114715135625836949L;

@@ -35,7 +35,7 @@ class BeerControllerTest {
 
     @Test
     void getBeerById() throws Exception {
-
+//anyBoolean() added to handle the new showInventoryOnHand parameter
         given(beerService.getById(any(), anyBoolean())).willReturn(getValidBeerDto());
 
         mockMvc.perform(get("/api/v1/beer/" + UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))

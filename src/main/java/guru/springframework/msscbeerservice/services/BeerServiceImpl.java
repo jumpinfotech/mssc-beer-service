@@ -17,19 +17,22 @@ import org.springframework.util.StringUtils;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-/**
- * Created by jt on 2019-06-06.
- */
 @RequiredArgsConstructor
 @Service
 public class BeerServiceImpl implements BeerService {
     private final BeerRepository beerRepository;
     private final BeerMapper beerMapper;
 
+    // get a list of 
+    // beerListCache maps to the cache alias found in ehcache.xml, only cache when showInventoryOnHand is false, spring 
+    // generates a key based upon the multiple parameters going into the method call
     @Cacheable(cacheNames = "beerListCache", condition = "#showInventoryOnHand == false ")
     @Override
     public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
 
+        // on startup when showInventoryOnHand is false, this method is called once, 
+        // further calls don't enter the method until 5 minutes have passed, with showInventoryOnHand=true, the method is always called
+        System.out.println("listBeers was called"); // added to show how caching works
         BeerPagedList beerPagedList;
         Page<Beer> beerPage;
 
@@ -42,7 +45,7 @@ public class BeerServiceImpl implements BeerService {
         } else if (StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
             //search beer_service style
             beerPage = beerRepository.findAllByBeerStyle(beerStyle, pageRequest);
-        } else {
+        } else { // if we don't have anything just do a findAll
             beerPage = beerRepository.findAll(pageRequest);
         }
 
@@ -60,7 +63,7 @@ public class BeerServiceImpl implements BeerService {
             beerPagedList = new BeerPagedList(beerPage
                     .getContent()
                     .stream()
-                    .map(beerMapper::beerToBeerDto)
+                    .map(beerMapper::beerToBeerDto)// convert Beer Objects from the repository + convert to BeerDto's
                     .collect(Collectors.toList()),
                     PageRequest
                             .of(beerPage.getPageable().getPageNumber(),
@@ -71,10 +74,15 @@ public class BeerServiceImpl implements BeerService {
         return beerPagedList;
     }
 
+    // key for the cache is beerId, gets called the first time, after that the cache is used 
+    // unless showInventoryOnHand is true or we request a new beerId
+    // if we deploy with many instances, each instance will have it's local cache - however ehcache can be configured 
+    // to share a single cache for multiple instances - advanced.
     @Cacheable(cacheNames = "beerCache", key = "#beerId", condition = "#showInventoryOnHand == false ")
     @Override
     public BeerDto getById(UUID beerId, Boolean showInventoryOnHand) {
-        if (showInventoryOnHand) {
+        System.out.println("getById was called"); // added to show how caching works
+        if (showInventoryOnHand) { // if true enhance the BeerDto with inventory
             return beerMapper.beerToBeerDtoWithInventory(
                     beerRepository.findById(beerId).orElseThrow(NotFoundException::new)
             );
@@ -102,7 +110,7 @@ public class BeerServiceImpl implements BeerService {
         return beerMapper.beerToBeerDto(beerRepository.save(beer));
     }
 
-    @Cacheable(cacheNames = "beerUpcCache")
+    @Cacheable(cacheNames = "beerUpcCache") // simple cache
     @Override
     public BeerDto getByUpc(String upc) {
         return beerMapper.beerToBeerDto(beerRepository.findByUpc(upc));

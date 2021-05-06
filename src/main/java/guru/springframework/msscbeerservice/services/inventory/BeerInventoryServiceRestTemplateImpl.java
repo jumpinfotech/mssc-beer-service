@@ -14,19 +14,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-06-07.
- */
 @Slf4j
 @ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = false)
 @Component
 public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryService {
-
+// class name > we could have more than 1 implementation in the future.
+    
     private final String INVENTORY_PATH = "/api/v1/beer/{beerId}/inventory";
     private final RestTemplate restTemplate;
 
+    // in application.properties we have sfg.brewery.beer-inventory-service-host
     private String beerInventoryServiceHost;
 
+    // setter needed for config property
     public void setBeerInventoryServiceHost(String beerInventoryServiceHost) {
         this.beerInventoryServiceHost = beerInventoryServiceHost;
     }
@@ -40,6 +40,7 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
 
         log.debug("Calling Inventory Service");
 
+        // beerId is bound to the URL: "/api/v1/beer/{beerId}/inventory"
         ResponseEntity<List<BeerInventoryDto>> responseEntity = restTemplate
                 .exchange(beerInventoryServiceHost + INVENTORY_PATH, HttpMethod.GET, null,
                         new ParameterizedTypeReference<List<BeerInventoryDto>>(){}, (Object) beerId);
@@ -49,7 +50,7 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
                 .stream()
                 .mapToInt(BeerInventoryDto::getQuantityOnHand)
                 .sum();
-
+// we return the sum
         return onHand;
     }
 }

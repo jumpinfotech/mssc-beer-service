@@ -8,10 +8,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-05-17.
- */
 public interface BeerRepository extends PagingAndSortingRepository<Beer, UUID> {
+    // custom queries with Pageable
     Page<Beer> findAllByBeerName(String beerName, Pageable pageable);
 
     Page<Beer> findAllByBeerStyle(BeerStyleEnum beerStyle, Pageable pageable);

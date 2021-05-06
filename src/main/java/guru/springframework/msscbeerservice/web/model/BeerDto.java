@@ -15,16 +15,14 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-05-12.
- */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+    // We should have been implementing serializable all along. I implemented it + added a serialVersionId (don't have to but it's best practice). 
 public class BeerDto implements Serializable  {
 
+    // IntelliJ generates a random long value. alt + enter>select Randomly change serialVersionUID initializer 
     static final long serialVersionUID = -5815566940065181210L;
 
     @Null

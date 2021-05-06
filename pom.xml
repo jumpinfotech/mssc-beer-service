@@ -67,11 +67,14 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+<!--        caching setup start -->
+<!--        don't need version information as these are curated dependencies from the spring boot parent pom -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
         <dependency>
+<!--            java standard cache API -->
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
         </dependency>
@@ -79,6 +82,7 @@
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
         </dependency>
+<!--        caching setup end -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>

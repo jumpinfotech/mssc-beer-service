@@ -1,3 +1,4 @@
+<!--a standard for ehcache config, there are lots of different configurations for ehcache - refer to official documentation -->
 <config
         xmlns:jsr107='http://www.ehcache.org/v3/jsr107'
         xmlns='http://www.ehcache.org/v3'>
@@ -5,12 +6,14 @@
         <jsr107:defaults enable-management="true" enable-statistics="true"/>
     </service>
     
+<!--    setup of caches -->
     <cache alias="beerCache" uses-template="config-cache"/>
     <cache alias="beerUpcCache" uses-template="config-cache"/>
     <cache alias="beerListCache" uses-template="config-cache"/>
 
     <cache-template name="config-cache">
         <expiry>
+<!--            we cache the values in memory for 5 minutes -->
             <ttl unit="minutes">5</ttl>
         </expiry>
         <resources>
