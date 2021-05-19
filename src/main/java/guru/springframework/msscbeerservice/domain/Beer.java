@@ -26,9 +26,10 @@ public class Beer {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Type(type="org.hibernate.type.UUIDCharType")
+// varchar worked with H2, but we get an error when using MySQL, varchar(36) was needed instead:-
     @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private UUID id;
-
+// in MySQL beerservice schema, beer table was created + updated
     @Version
     private Long version;
 

@@ -16,15 +16,23 @@ import java.math.BigDecimal;
 @Component
 public class BeerLoader implements CommandLineRunner {
 
+//  we were loading the data from data.sql when running an embedded H2 data source
     public static final String BEER_1_UPC = "0631234200036";
     public static final String BEER_2_UPC = "0631234300019";
     public static final String BEER_3_UPC = "0083783375213";
+    //UUID removed from here, we will be using UPC
 
     private final BeerRepository beerRepository;
+
+    // removed as class annotation @RequiredArgsConstructor added
+//    public BeerLoader(BeerRepository beerRepository) {
+//        this.beerRepository = beerRepository;
+//    }
 
     @Override
     public void run(String... args) throws Exception {
 
+        // load if beerRepository is empty
           if(beerRepository.count() == 0 ) {
               loadBeerObjects();
           }
@@ -58,6 +66,7 @@ public class BeerLoader implements CommandLineRunner {
                 .upc(BEER_3_UPC)
                 .build();
 
+        // load into table using JPA + Hibernate
         beerRepository.save(b1);
         beerRepository.save(b2);
         beerRepository.save(b3);
