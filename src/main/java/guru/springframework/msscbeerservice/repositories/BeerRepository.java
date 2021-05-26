@@ -11,6 +11,8 @@ import java.util.UUID;
 /**
  * Created by jt on 2019-05-17.
  */
+// was using PagingAndSortingRepository, now using JpaRepository which extends PagingAndSortingRepository
+// Which repository to use? One that fits your needs
 public interface BeerRepository extends JpaRepository<Beer, UUID> {
     Page<Beer> findAllByBeerName(String beerName, Pageable pageable);
 

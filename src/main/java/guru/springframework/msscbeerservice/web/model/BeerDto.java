@@ -23,7 +23,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BeerDto implements Serializable  {
+//  BeerDto>has properties needed for communicating to the inventory service that we want to brew beer.
+//  It has some extra information>fine for us>also reuses code.
+public class BeerDto implements Serializable  { 
 
     static final long serialVersionUID = -5815566940065181210L;
 

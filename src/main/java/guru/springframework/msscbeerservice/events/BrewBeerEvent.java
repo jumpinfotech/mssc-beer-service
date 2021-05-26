@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 /**
  * Created by jt on 2019-07-21.
  */
-@NoArgsConstructor
+@NoArgsConstructor // added due to error:- Cannot construct instance of ‘guru.springframework.msscbeerservice.events.BrewBeerEvent‘
 public class BrewBeerEvent extends BeerEvent {
-
-    public BrewBeerEvent(BeerDto beerDto) {
+    //   Demonstrates setting up events using a specific type (BeerEvent.java) for events
+    public BrewBeerEvent(BeerDto beerDto) { // can mix setting up a constructor here + using Lombok, some people may complain
         super(beerDto);
     }
 }
