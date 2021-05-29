@@ -17,6 +17,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class BeerEvent implements Serializable {
 
+    // BeerEvent, BrewBeerEvent + NewInventoryEvent where moved into this package 
+    // mssc-beer-service\src\main\java\guru\sfg\brewery\model\events\ from
+    // mssc-beer-service\src\main\java\guru\sfg\common\events\
+    // after moving classes around in maven always do a clean>then run package
     static final long serialVersionUID = -5781515597148163111L;
 
     private BeerDto beerDto;

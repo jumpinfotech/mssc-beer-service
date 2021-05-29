@@ -25,6 +25,11 @@ import java.util.UUID;
 @Builder
 public class BeerDto implements Serializable  {
 
+    // all model classes under 
+    // mssc-beer-service\src\main\java\guru\sfg\brewery\model were all moved from:- 
+    // mssc-beer-service\src\main\java\guru\springframework\msscbeerservice\web\model
+    // the same type of refactoring is done for mssc-beer-inventory-service + mssc-beer-order-service
+    // The DTO's no longer inherit / extend - this caused issues, I think this is a common issue - google it!
     static final long serialVersionUID = -5815566940065181210L;
 
     @Null

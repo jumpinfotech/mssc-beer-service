@@ -14,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+// payload we need to send back to mssc-beer-order-service
 public class ValidateOrderResult {
     private UUID orderId;
     private Boolean isValid;

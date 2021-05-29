@@ -32,6 +32,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+// copied + pasted from mssc-beer-order-service project
 public class BeerOrderDto {
 
     @JsonProperty("id")

@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ValidateOrderRequest {
+// copied + pasted from mssc-beer-order-service project
+public class ValidateOrderRequest { 
 
     private BeerOrderDto beerOrder;
 }

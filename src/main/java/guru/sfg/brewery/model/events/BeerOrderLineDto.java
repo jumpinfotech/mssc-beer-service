@@ -32,6 +32,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+// copied + pasted from mssc-beer-order-service project, 
+// as long as we have the same package names + types we are good 
+// - we are sharing them between the microservices,
+// we could do Jackson mapping - but this makes things a bit easier
 public class BeerOrderLineDto {
 
     @JsonProperty("id")

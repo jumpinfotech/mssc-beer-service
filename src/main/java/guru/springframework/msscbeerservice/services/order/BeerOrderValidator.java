@@ -22,12 +22,15 @@ public class BeerOrderValidator {
 
         AtomicInteger beersNotFound = new AtomicInteger();
 
-        beerOrder.getBeerOrderLines().forEach(orderline -> {
+        // loop through orderlines on BeerOrderDto 
+        beerOrder.getBeerOrderLines().forEach(orderline -> { 
             if(beerRepository.findByUpc(orderline.getUpc()) == null){
+                // increment beersNotFound by 1 if Upc is missing from repository
                 beersNotFound.incrementAndGet();
             }
         });
 
+        // if 0 then it's a valid order
         return beersNotFound.get() == 0;
     }
 

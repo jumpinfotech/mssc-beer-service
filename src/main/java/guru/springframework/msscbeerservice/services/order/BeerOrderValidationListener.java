@@ -18,14 +18,15 @@ public class BeerOrderValidationListener {
     private final BeerOrderValidator validator;
     private final JmsTemplate jmsTemplate;
 
-    @JmsListener(destination = JmsConfig.VALIDATE_ORDER_QUEUE)
+    // mssc-beer-order-service sends to this queue
+    @JmsListener(destination = JmsConfig.VALIDATE_ORDER_QUEUE) 
     public void listen(ValidateOrderRequest validateOrderRequest){
         Boolean isValid = validator.validateOrder(validateOrderRequest.getBeerOrder());
 
-        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE,
+        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE, // added to response queue
                 ValidateOrderResult.builder()
                     .isValid(isValid)
                     .orderId(validateOrderRequest.getBeerOrder().getId())
-                    .build());
+                    .build()); // remember .build() it's easy to forget, there are no compile errors>you send a builder across the wire
     }
 }
